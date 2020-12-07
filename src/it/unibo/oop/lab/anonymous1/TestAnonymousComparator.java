@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.anonymous1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUser;
@@ -57,6 +59,7 @@ public final class TestAnonymousComparator {
         final SocialNetworkUser<User> ntaleb = new SocialNetworkUserImpl<>("Nicholas", "Taleb", "ntaleb", 54);
         final SocialNetworkUser<User> mrossi = new SocialNetworkUserImpl<>("Mario", "Rossi", "mrossi", 31);
         final SocialNetworkUser<User> pverdi = new SocialNetworkUserImpl<>("Paolo", "Verdi", "pverdi", 24);
+        
         // TEST on DENZEL
         dwashington.addFollowedUser("relatives", mrossi);
         dwashington.addFollowedUser("relatives", pverdi);
@@ -74,7 +77,16 @@ public final class TestAnonymousComparator {
          * 
          * REFER TO LESSON 13-Advanced-Mechanisms.pdf, slide 41
          */
-        // TODO
+
+        Collections.sort(denzelUsers, new Comparator<User>() {
+			@Override
+			public int compare(User o1, User o2) {
+				return o1.getAge() - o2.getAge();
+			}
+        });
+        
+        System.out.println(denzelUsers);
+        
         /*
          * expected Result
          */
@@ -84,10 +96,14 @@ public final class TestAnonymousComparator {
         expectedResult.add(mgladwell);
         expectedResult.add(ntaleb);
         expectedResult.add(kbacon);
+        
+        System.out.println(expectedResult);
+        
         System.out.println("[Order by age (increasing) Denzel friends] [TEST] [START]");
         System.out.println("[Order by age (increasing) Denzel friends] [TEST] [RESULT] "
                 + checkUserOrder(expectedResult, denzelUsers));
         System.out.println("[Order by age (increasing) Denzel friends] [TEST] [END]");
+        
         /*
          * TEST on MARIO ROSSI
          */
@@ -105,7 +121,16 @@ public final class TestAnonymousComparator {
          * NOTE: in order to sort a list think about a method of the utility
          * class Collections
          */
-        // TODO
+        
+        Collections.sort(rossiUsers, new Comparator<User>() {
+			@Override
+			public int compare(User o1, User o2) {
+				return o2.getAge() - o1.getAge();
+			}
+        });
+        
+        System.out.println(rossiUsers);
+        
         /*
          * expected Result
          */
@@ -115,6 +140,9 @@ public final class TestAnonymousComparator {
         expectedResult.add(ntaleb);
         expectedResult.add(mgladwell);
         expectedResult.add(pverdi);
+        
+        System.out.println(expectedResult);
+        
         System.out.println("[Order by age (decreasing) Rossi friends] [TEST] [START]");
         System.out.println("[Order by age (decreasing) Rossi friends] [TEST] [RESULT] "
                 + checkUserOrder(expectedResult, rossiUsers));
